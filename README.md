@@ -21,5 +21,5 @@ Este repositorio contiene el desarrollo del taller de ingeniería de datos para 
 ## 🚀 Pasos para Reproducir la Práctica
 1. **Clonar el repositorio:**
    ```bash
-   git clone [https://github.com/tu-usuario/solarbi-grisales-herrera.git](https://github.com/tu-usuario/solarbi-grisales-herrera.git)
-   cd solarbi-grisales-herrera
+   git clone https://github.com/JorgeAnDev/SolarBI-JorgeGrisales-AndresAsprilla.git
+   cd SolarBI-JorgeGrisales-AndresAsprilla

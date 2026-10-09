@@ -1,0 +1,142 @@
+{
+  "panels": [
+    {
+      "datasource": {
+        "type": "grafana-postgresql-datasource",
+        "uid": "solarbi-pg"
+      },
+      "description": "Umbral rojo cuando la potencia es 0 kW. Se vigila entre las 9:00 y las 15:00 (ver regla de alerta Potencia cero 9-15h).",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "fillOpacity": 15,
+            "lineWidth": 2,
+            "thresholdsStyle": {
+              "mode": "line+area"
+            }
+          },
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "red",
+                "value": null
+              },
+              {
+                "color": "green",
+                "value": 0.001
+              }
+            ]
+          },
+          "unit": "kwatt"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 12,
+        "w": 18,
+        "x": 0,
+        "y": 0
+      },
+      "id": 1,
+      "options": {
+        "legend": {
+          "displayMode": "list",
+          "placement": "bottom"
+        },
+        "tooltip": {
+          "mode": "single"
+        }
+      },
+      "targets": [
+        {
+          "datasource": {
+            "type": "grafana-postgresql-datasource",
+            "uid": "solarbi-pg"
+          },
+          "editorMode": "code",
+          "format": "time_series",
+          "rawQuery": true,
+          "rawSql": "SELECT ts AS time, p_ac_kw AS \"Potencia kW\"\nFROM silver.lectura_5min\nWHERE $__timeFilter(ts)\nORDER BY ts",
+          "refId": "A"
+        }
+      ],
+      "title": "Potencia AC (kW) cada 5 minutos",
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "grafana-postgresql-datasource",
+        "uid": "solarbi-pg"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "decimals": 2,
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "orange",
+                "value": null
+              }
+            ]
+          },
+          "unit": "kwatth"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 6,
+        "w": 6,
+        "x": 18,
+        "y": 0
+      },
+      "id": 2,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "none",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "textMode": "value"
+      },
+      "targets": [
+        {
+          "datasource": {
+            "type": "grafana-postgresql-datasource",
+            "uid": "solarbi-pg"
+          },
+          "editorMode": "code",
+          "format": "table",
+          "rawQuery": true,
+          "rawSql": "SELECT COALESCE(SUM(p_ac_kw * 5.0 / 60.0), 0) AS energia_kwh\nFROM silver.lectura_5min\nWHERE $__timeFilter(ts)",
+          "refId": "A"
+        }
+      ],
+      "title": "Energía del día seleccionado (kWh)",
+      "type": "stat"
+    }
+  ],
+  "refresh": "",
+  "schemaVersion": 39,
+  "tags": [
+    "solarbi"
+  ],
+  "time": {
+    "from": "2026-10-05T00:00:00.000Z",
+    "to": "2026-10-05T23:59:59.000Z"
+  },
+  "timezone": "utc",
+  "title": "SolarBI - Monitoreo de potencia solar",
+  "uid": "solarbi-potencia"
+}
