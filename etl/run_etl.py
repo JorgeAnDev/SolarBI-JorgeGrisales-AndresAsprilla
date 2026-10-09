@@ -21,7 +21,7 @@ def ejecutar_etapa_silver_gold():
     df = pd.read_csv(ruta_bronze)
     filas_leidas = len(df)
 
-    # 2. Aplicar Reglas de Calidad
+    # 2. Aplicar Reglas de Calidad.
     # Regla A: Datos faltantes / nulos en columnas clave
     antes_nulos = len(df)
     df = df.dropna(subset=["ts", "dispositivo_id", "p_ac_kw", "irradiancia_wm2", "temp_modulo_c"])
