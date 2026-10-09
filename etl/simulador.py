@@ -7,7 +7,7 @@ os.makedirs("data/bronze", exist_ok=True)
 with open("data/bronze/telemetria.csv", "w", newline="", encoding="utf-8") as f:
     w = csv.writer(f)
     w.writerow(["ts", "dispositivo_id", "p_ac_kw", "irradiancia_wm2", "temp_modulo_c"])
-    for i in range(3 * 288):                          # 3 dias, cada 5 min
+    for i in range(3 * 288):                          # 3 dias, cada 5 min.
         ts = inicio + timedelta(minutes=5 * i)
         sol = max(0.0, math.sin(math.pi * (ts.hour + ts.minute / 60 - 6) / 12))
         irr = round(1000 * sol * random.uniform(0.7, 1.0), 1)
