@@ -1,0 +1,14 @@
+# Python y entornos
+__pycache__/
+*.py[cod]
+venv/
+env/
+.env
+
+# Sistema y logs
+.DS_Store
+*.log
+etl.log
+
+# Power BI temporales
+*.bak
